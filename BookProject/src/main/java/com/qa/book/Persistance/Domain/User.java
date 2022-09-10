@@ -1,5 +1,6 @@
 package com.qa.book.Persistance.Domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,25 +8,30 @@ import javax.persistence.Id;
 
 @Entity
 
-public class Users {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	
 	private long userId;
+	
+	
+	@Column (nullable = false)
 	private String firstName;
+	@Column (nullable = false)
 	private String lastName;
+	@Column (unique = true, nullable = false)
 	private String email;
+	@Column (nullable = false)
 	private String password;
 	
 	
-	public Users() {
+	public User() {
 		super();
 	
 	}
 
 
-	public Users(long userId, String firstName, String lastName, String email, String password) {
+	public User(long userId, String firstName, String lastName, String email, String password) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;

@@ -17,27 +17,28 @@ public class Book {
 
 
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-private long bookId;
-
-
-private String title;
-
-private String authors;
-private Date publishedDate;
-@Column (unique = true, nullable = false)
-private String isbn;
-private int pages;
-private int copies;
-
-
-// Super constructor
-public Book() {
-	super();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-}
+	private long bookId;
+	
+	@Column (nullable = false)
+	private String title;
+	
+	private String authors;
+	private Date publishedDate;
+	@Column (unique = true, nullable = false)
+	private String isbn;
+	private int pages;
+	@Column (nullable = false)
+	private int copies;
+	
+	
+	// Super constructor
+	public Book() {
+		super();
+		
+	}
 
 
 // Constructor
