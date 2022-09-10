@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Books {
+public class Book {
 
 
 
@@ -22,35 +22,40 @@ public class Books {
 
 private long bookId;
 
+
 private String title;
 
-private int pages;
-
+private String authors;
+private Date publishedDate;
 @Column (unique = true, nullable = false)
 private String isbn;
-
-private Date publishedDate;
-
-private String authors;
+private int pages;
+private int copies;
 
 
 // Super constructor
-public Books() {
+public Book() {
 	super();
 	
 }
 
 
 // Constructor
-public Books(long id, String title, int pages, String isbn, Date publishedDate, String authors, long bookId) {
+
+public Book(long bookId, String title, Date publishedDate, String authors, String isbn, int pages, int copies) {
 	super();
 	this.bookId = bookId;
 	this.title = title;
-	this.pages = pages;
-	this.isbn = isbn;
 	this.publishedDate = publishedDate;
 	this.authors = authors;
+	this.isbn = isbn;
+	this.pages = pages;
+	this.copies = copies;
 }
+
+
+
+
 
 
 //Getters & Setters
@@ -58,8 +63,6 @@ public Books(long id, String title, int pages, String isbn, Date publishedDate, 
 public long getId() {
 	return bookId;
 }
-
-
 
 public String getTitle() {
 	return title;
@@ -108,6 +111,16 @@ public String getAuthors() {
 
 public void setAuthors(String authors) {
 	this.authors = authors;
+}
+
+
+public int getCopies() {
+	return copies;
+}
+
+
+public void setCopies(int copies) {
+	this.copies = copies;
 }
 
 

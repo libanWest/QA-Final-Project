@@ -15,6 +15,8 @@ public class Users {
 	private long userId;
 	private String firstName;
 	private String lastName;
+	private String email;
+	private String password;
 	
 	
 	public Users() {
@@ -23,11 +25,23 @@ public class Users {
 	}
 
 
-	public Users(long userId, String firstName, String lastName) {
+	public Users(long userId, String firstName, String lastName, String email, String password) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
+
+
+	public long getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 
@@ -51,9 +65,30 @@ public class Users {
 	}
 
 
-	public long getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+
+
+
 	
 	
 	
