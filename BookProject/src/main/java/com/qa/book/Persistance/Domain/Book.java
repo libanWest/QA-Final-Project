@@ -1,12 +1,18 @@
 package com.qa.book.Persistance.Domain;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,7 +46,19 @@ public class Book {
 	private int copies;
 	
 	
-	
+@ManyToMany	(cascade = CascadeType.ALL)
+@JoinTable( name = "Book_Authors", 
+	joinColumns = {@JoinColumn(name = "Book_id")},
+	inverseJoinColumns = {@JoinColumn(name = "Author_id")})
+
+private Set<Author> authorsSet = new HashSet<>();
+
+
+
+		
+		
+		
+		
 	
 	
 	

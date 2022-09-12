@@ -1,10 +1,15 @@
 package com.qa.book.Persistance.Domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +37,10 @@ public class Author {
 	private String nationality;
 
 
-	
+@ManyToMany	(cascade = CascadeType.ALL, mappedBy = "authorsSet")	
+
+private Set<Book> bookSet =  new HashSet<>();
+
 
 
 }
