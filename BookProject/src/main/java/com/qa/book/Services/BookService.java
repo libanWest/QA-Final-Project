@@ -64,7 +64,7 @@ java.util.Optional<Book> existingOptional = this.repo.findById(id); // the id in
 Book existing = existingOptional.get(); // retrieves the existing book to this var
 
 existing.setTitle(book.getTitle());
-existing.setAuthors(book.getAuthors());
+existing.setAuthorId(book.getAuthorId());
 existing.setPublishedDate(book.getPublishedDate());
 existing.setIsbn(book.getIsbn());
 existing.setPublishedDate(book.getPublishedDate());

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 public class Author {
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +36,21 @@ public class Author {
 	private String lastName;
 	@Column (nullable = false)
 	private String nationality;
+	
 
 
-@ManyToMany	(cascade = CascadeType.ALL, mappedBy = "authorsSet")	
+	public Author(long authorId, String firstName, String lastName, String nationality) {
+		super();
+		this.authorId = authorId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nationality = nationality;
+	}
+	
+	@JsonIgnore
+	@ManyToMany	(cascade = CascadeType.ALL, mappedBy = "authorsSet")	
 
-private Set<Book> bookSet =  new HashSet<>();
+	private Set<Book> bookSet =  new HashSet<>();
 
 
 

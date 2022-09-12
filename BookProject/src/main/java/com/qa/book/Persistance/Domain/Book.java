@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,11 +25,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 public class Book {
-
-
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +39,7 @@ public class Book {
 	@Column (nullable = false)
 	private String title;
 	
-	private String authors;
+	private long authorId;
 	private Date publishedDate;
 	@Column (unique = true, nullable = false)
 	private String isbn;
@@ -46,12 +48,25 @@ public class Book {
 	private int copies;
 	
 	
-@ManyToMany	(cascade = CascadeType.ALL)
-@JoinTable( name = "Book_Authors", 
-	joinColumns = {@JoinColumn(name = "Book_id")},
-	inverseJoinColumns = {@JoinColumn(name = "Author_id")})
 
-private Set<Author> authorsSet = new HashSet<>();
+	public Book(long bookId, String title, long authorId, Date publishedDate, String isbn, int pages, int copies) {
+		super();
+		this.bookId = bookId;
+		this.title = title;
+		this.authorId = authorId;
+		this.publishedDate = publishedDate;
+		this.isbn = isbn;
+		this.pages = pages;
+		this.copies = copies;
+	}
+
+	@JsonIgnore	
+	@ManyToMany	(cascade = CascadeType.ALL)
+	@JoinTable( name = "Book_Authors", 
+	joinColumns = {@JoinColumn(name = "Bookid")},
+	inverseJoinColumns = {@JoinColumn(name = "Authorid")})
+
+	private Set<Author> authorsSet = new HashSet<>();
 
 
 
