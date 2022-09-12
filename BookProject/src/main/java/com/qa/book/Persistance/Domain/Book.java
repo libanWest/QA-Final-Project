@@ -39,7 +39,6 @@ public class Book {
 	@Column (nullable = false)
 	private String title;
 	
-	private long authorId;
 	private Date publishedDate;
 	@Column (unique = true, nullable = false)
 	private String isbn;
@@ -49,24 +48,23 @@ public class Book {
 	
 	
 
-	public Book(long bookId, String title, long authorId, Date publishedDate, String isbn, int pages, int copies) {
+	public Book(long bookId, String title, Date publishedDate, String isbn, int pages, int copies) {
 		super();
 		this.bookId = bookId;
 		this.title = title;
-		this.authorId = authorId;
 		this.publishedDate = publishedDate;
 		this.isbn = isbn;
 		this.pages = pages;
 		this.copies = copies;
 	}
 
-	@JsonIgnore	
+		
 	@ManyToMany	(cascade = CascadeType.ALL)
 	@JoinTable( name = "Book_Authors", 
 	joinColumns = {@JoinColumn(name = "Bookid")},
 	inverseJoinColumns = {@JoinColumn(name = "Authorid")})
 
-	private Set<Author> authorsSet = new HashSet<>();
+	private Set<Author> authors = new HashSet<>();
 
 
 

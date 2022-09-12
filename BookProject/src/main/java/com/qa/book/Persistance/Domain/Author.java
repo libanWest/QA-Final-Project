@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -27,30 +28,28 @@ import lombok.NoArgsConstructor;
 public class Author {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	private long authorId;
+	@GeneratedValue
+		private long authorId;
+	
 	@Column (nullable = false)
-	private String firstName;
+		private String fullName;
+	
 	@Column (nullable = false)
-	private String lastName;
-	@Column (nullable = false)
-	private String nationality;
+		private String nationality;
 	
 
 
-	public Author(long authorId, String firstName, String lastName, String nationality) {
+	public Author(long authorId, String firstName, String nationality) {
 		super();
 		this.authorId = authorId;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fullName = firstName;
 		this.nationality = nationality;
 	}
 	
-	@JsonIgnore
-	@ManyToMany	(cascade = CascadeType.ALL, mappedBy = "authorsSet")	
-
-	private Set<Book> bookSet =  new HashSet<>();
+	
+	@ManyToMany	(cascade = CascadeType.ALL, mappedBy = "authors")	
+	@JsonBackReference
+		private Set<Book> bookSet =  new HashSet<>();
 
 
 

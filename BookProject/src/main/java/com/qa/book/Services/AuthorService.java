@@ -52,8 +52,7 @@ public class AuthorService {
 
 	Author existing = existingOptional.get(); 
 
-	existing.setFirstName(author.getFirstName());
-	existing.setLastName(author.getLastName());
+	existing.setFullName(author.getFullName());
 	existing.setNationality(author.getNationality());
 
 	return this.repo.save(existing);
