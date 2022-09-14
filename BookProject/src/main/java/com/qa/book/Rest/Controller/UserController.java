@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.qa.book.Persistance.Domain.Book;
 import com.qa.book.Persistance.Domain.User;
 import com.qa.book.Services.UserService;
 
@@ -57,5 +59,25 @@ public boolean removeUser(@PathVariable Long id) {
 	return this.service.removeUser(id);
 }
 
+@PutMapping("/{userId}/borrow-book/{bookId}")
+User 
+borrowBook(
+        @PathVariable Long userId,
+        @PathVariable Long bookId
+) {
+    return this.service.BorrowBook(userId,bookId);
+
+}
+
+
+@PutMapping("/{userId}/return-book/{bookId}")
+User 
+returnBook(
+        @PathVariable Long userId,
+        @PathVariable Long bookId
+) {
+    return this.service.ReturnBook(userId,bookId);
+
+}
 
 }

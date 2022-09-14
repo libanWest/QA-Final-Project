@@ -15,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.Getter;
@@ -72,7 +75,19 @@ public class Book {
 	@Setter(AccessLevel.NONE)
     private Set <Author> authors = new HashSet<>();
 
-		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 @ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore   
+	private User user;
 
 	public void setAuthors(Author author) {
 			this.authors.add(author);
