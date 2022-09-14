@@ -77,7 +77,11 @@ public class Book {
 
 	
 	
+	@JsonIgnore
+	@ManyToMany	(mappedBy = "books")	
 	
+	//@JsonBackReference
+		private Set <User> users = new HashSet<>();
 	
 	
 	
