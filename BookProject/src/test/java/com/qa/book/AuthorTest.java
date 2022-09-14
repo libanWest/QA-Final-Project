@@ -31,13 +31,13 @@ public class AuthorTest {
 		
 		
 		// mocking input and testing what should be returned when save method is called by the service 
-		   Mockito.when(this.repo.save(new Author(1,"harris", "French"))).thenReturn(new Author(1, "harris", "French"));
+		   Mockito.when(this.repo.save(new Author(1,"harris", "ford",125698, "French"))).thenReturn(new Author(1,"harris","ford",125698, "French"));
 		   
 		//check that the object returned by the service layer's create method is the same as the one returned by the repo's save method
-		   Assertions.assertThat(this.service.addAuthor(new Author(1,"harris", "French"))).isEqualTo(new Author(1, "harris", "French")); 
+		   Assertions.assertThat(this.service.addAuthor(new Author(1,"harris", "ford",125698, "French"))).isEqualTo(new Author(1,"harris", "ford",125698, "French")); 
 		
 		//Finally, we want to verify that the methods we're mocking have been called the correct amount of times:
-		   Mockito.verify(this.repo, Mockito.times(1)).save(new Author(1,"harris", "French"));
+		   Mockito.verify(this.repo, Mockito.times(1)).save(new Author(1,"harris", "ford",125698, "French"));
 	}
 
 	

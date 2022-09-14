@@ -27,8 +27,8 @@ private BookService service;
 
 public BookController(BookService service) {
 	super();
-	this.service = service;}
-
+	this.service = service;
+}
 
 
 @PostMapping( "/create")
@@ -58,6 +58,22 @@ public boolean removeBook(@PathVariable Long id) {
 	return this.service.removeBook(id);
 }
 
+@PutMapping("/{bookId}/authors/{authorId}")
+Book addAuthorToBook(
+        @PathVariable Long bookId,
+        @PathVariable Long authorId
+) {
+    return this.service.addAuthor(bookId, authorId);
+
+}
 
 
+@PutMapping("/{bookId}/delete-authors/{authorId}")
+Book deleteAuthors(
+        @PathVariable Long bookId,
+        @PathVariable Long authorId
+) {
+    return this.service.DeleteAuthor(bookId, authorId);
+
+}
 }

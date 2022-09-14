@@ -28,37 +28,37 @@ public class AuthorController {
 private AuthorService service;
 
 
-public AuthorController(AuthorService service) {
-	super();
-	this.service = service;}
-
-
-
-@PostMapping( "/authors/create")
-public Author addAuthor (@RequestBody Author author) {
-	return this.service.addAuthor(author);
-}
-
-
-@GetMapping("/authors/getAll")
-
-public List<Author> getAll(){
+	public AuthorController(AuthorService service) {
+		super();
+		this.service = service;}
 	
-	return this.service.getAll();
-}
-
-@PutMapping("/authors/update")
-
-public Author updateAuthor(@PathParam("id") Long id, @RequestBody Author author) { // request the id to retrieve and the body to update it
 	
-	return this.service.updateAuthor(id, author);
 	
-}
-
-@DeleteMapping("/authors/delete/{id}")
-public boolean removeAuthor(@PathVariable Long id) {
+	@PostMapping( "/authors/create")
+	public Author addAuthor (@RequestBody Author author) {
+		return this.service.addAuthor(author);
+	}
 	
-	return this.service.removeAuthor(id);
-}
+	
+	@GetMapping("/authors/getAll")
+	
+	public List<Author> getAll(){
+		
+		return this.service.getAll();
+	}
+	
+	@PutMapping("/authors/update")
+	
+	public Author updateAuthor(@PathParam("id") Long id, @RequestBody Author author) { // request the id to retrieve and the body to update it
+		
+		return this.service.updateAuthor(id, author);
+		
+	}
+	
+	@DeleteMapping("/authors/delete/{id}")
+	public boolean removeAuthor(@PathVariable Long id) {
+		
+		return this.service.removeAuthor(id);
+	}
 
 }

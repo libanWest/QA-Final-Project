@@ -6,4 +6,7 @@ import com.qa.book.Persistance.Domain.Book;
 
 public interface BookRepo extends JpaRepository<Book, Long>{
 
+	
+	
+	
 }

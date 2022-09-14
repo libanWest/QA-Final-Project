@@ -1,11 +1,14 @@
 package com.qa.book.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.qa.book.Persistance.Domain.Author;
 import com.qa.book.Persistance.Domain.Book;
+import com.qa.book.Persistance.Repo.AuthorRepo;
 import com.qa.book.Persistance.Repo.BookRepo;
 
 
@@ -18,82 +21,85 @@ import com.qa.book.Persistance.Repo.BookRepo;
 
 public class BookService {
 	
-private BookRepo repo;
-
-
-public BookService(BookRepo repo) {
-	super();
+	private BookRepo repo;
 	
-	this.repo = repo;
+	private AuthorRepo authorRepo;
+	public BookService(BookRepo repo , AuthorRepo authorRepo) {
+		super();
+		
+		this.repo = repo;
+		this.authorRepo = authorRepo;
+	}
 	
-}
-
-
+			
+	// Add book
+		
+	public Book addBook(Book newBook) {
+		
+		return this.repo.save(newBook);  
+		
+	}
+	
+	// Get all
+	
+	public List<Book> getAll() {
+		
+		return this.repo.findAll(); 
+	}
 	
 	
+	// Update
+	
+	public Book updateBook(Long id, Book book) {
+		
+	java.util.Optional<Book> existingOptional = this.repo.findById(id); 
+	
+	Book existing = existingOptional.get(); 
+	
+	existing.setTitle(book.getTitle());
+	existing.setPublishedDate(book.getPublishedDate());
+	existing.setIsbnNumber(book.getIsbnNumber());
+	existing.setPublishedDate(book.getPublishedDate());
+	existing.setNumPages(book.getNumPages());
+	existing.setAvailableCopies(book.getAvailableCopies()); 
+		
+	return this.repo.save(existing);
+		
+	
+	}
+	
+	// Delete
 
 	
-// Add book
+	public boolean removeBook(Long id) {
+		
+		this.repo.deleteById(id);	
+		boolean exists =  this.repo.existsById(id);
+		return !exists; 
+		}
+
 	
-public Book addBook(Book newBook) {
-	
-	return this.repo.save(newBook);  // saves the new book into the repo 
-	
-	//Book saved = this.repo.save(newBook);
-	//return this.mapToDTO(saved);
+	public Optional<Book> findById(Long bookId) {
+		return this.repo.findById(bookId);
+		}
+		
 	
 	
-}
+	public Book addAuthor(Long bookId, Long authorId) {
+		
+	    Book book = this.repo.findById(bookId).get();
+	    Author author = this.authorRepo.findById(authorId).get();
+	    book.setAuthors(author); 
+	 
+	    return this.repo.save(book);
+		}
 
-
-// Get all
-
-public List<Book> getAll() {
-	
-	return this.repo.findAll(); 
-}
-
-
-// Update
-
-public Book updateBook(Long id, Book book) {
-	
-java.util.Optional<Book> existingOptional = this.repo.findById(id); // the id in url as param
-
-
-Book existing = existingOptional.get(); // retrieves the existing book to this var
-
-existing.setTitle(book.getTitle());
-existing.setPublishedDate(book.getPublishedDate());
-existing.setIsbn(book.getIsbn());
-existing.setPublishedDate(book.getPublishedDate());
-existing.setPages(book.getPages());
-existing.setCopies(book.getCopies()); // this allow us to change the fields 
-
-
-
-
-return this.repo.save(existing);
-
-
-
-
-
-// Book updated = this.repo.save(existing);
-// return this.mapToDTO(updated)	
-}
-
-// Delete
-
-public boolean removeBook(Long id) {
-	
-	this.repo.deleteById(id);
-	
-	boolean exists =  this.repo.existsById(id);
-	
-	return !exists;   // true if its deleted 
-	
-}
-	
-
+	public Book DeleteAuthor(Long bookId, Long authorId) {
+			  
+	    Book book = this.repo.findById(bookId).get();
+	    Author author = this.authorRepo.findById(authorId).get();
+	    
+	    book.DeleteAuthor(author);
+	    return this.repo.save(book);
+	}
 }

@@ -3,7 +3,6 @@ package com.qa.book.Persistance.Domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,45 +10,55 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 
-
 @Data
+
 @NoArgsConstructor
-//@AllArgsConstructor
 @Entity
 public class Author {
 	
 	@Id
-	@GeneratedValue
-		private long authorId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "author_Id")
+	private long authorId;
+	
+	@Column (name = "first_name",nullable = false)
+	private String firstName;
+	
+	@Column (name = "last_name",nullable = false)
+	private String lastName;
+	
+	@Column (name = "ORCID_No",unique = true, nullable = false)
+	private long orcidNumber;
 	
 	@Column (nullable = false)
-		private String fullName;
-	
-	@Column (nullable = false)
-		private String nationality;
+	private String nationality;
 	
 
 
-	public Author(long authorId, String firstName, String nationality) {
+	public Author(long authorId, String firstName,String lastName, long orcidNumber, String nationality) {
 		super();
 		this.authorId = authorId;
-		this.fullName = firstName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.orcidNumber = orcidNumber;
 		this.nationality = nationality;
 	}
 	
 	
-	@ManyToMany	(cascade = CascadeType.ALL, mappedBy = "authors")	
-	@JsonBackReference
-		private Set<Book> bookSet =  new HashSet<>();
+	@JsonIgnore
+	@ManyToMany	(mappedBy = "authors")	
+	
+	//@JsonBackReference
+		private Set <Book> bookSet = new HashSet<>();
+
+
 
 
 
