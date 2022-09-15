@@ -33,26 +33,22 @@ import lombok.Setter;
 
 public class Book {
 	
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_Id")
 	private long bookId;
 	
-	@Column (nullable = false)
+	@Column (name = "title",nullable = false)
 	private String title;
 	
 	@Column (name = "published_date",nullable = false)
 	private String publishedDate;
-	@Column (name = "ISBN_No",unique = true, nullable = false)
+	@Column (name = "isbn_no",unique = true, nullable = false)
 	private String isbnNumber;
 	
-	@Column (name = "Available_Copies",nullable = false)
+	@Column (name = "available_copies",nullable = false)
 	private int availableCopies;
 	
-	
-
 	public Book(long bookId, String title, String publishedDate, String isbnNumber, int availableCopies,
 			Set<Author> authors) {
 		super();
@@ -71,8 +67,6 @@ public class Book {
 	
 	@Setter(AccessLevel.NONE)
     private Set <Author> authors = new HashSet<>();
-
-	
 	
 	@JsonIgnore
 	@ManyToMany	(mappedBy = "books")	
@@ -80,13 +74,7 @@ public class Book {
 	//@JsonBackReference
 		private Set <User> users = new HashSet<>();
 	
-	
-	
-	
-	
-	
-	
-
+		
 	public void setAuthors(Author author) {
 			this.authors.add(author);
 	}

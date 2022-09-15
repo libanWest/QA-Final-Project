@@ -34,13 +34,12 @@ public class Author {
 	@Column (name = "last_name",nullable = false)
 	private String lastName;
 	
-	@Column (name = "ORCID_No",unique = true, nullable = false)
+	@Column (name = "orcid_no",unique = true, nullable = false)
 	private long orcidNumber;
 	
-	@Column (nullable = false)
+	@Column (name = "nationality",nullable = false)
 	private String nationality;
 	
-
 
 	public Author(long authorId, String firstName,String lastName, long orcidNumber, String nationality) {
 		super();
@@ -50,8 +49,7 @@ public class Author {
 		this.orcidNumber = orcidNumber;
 		this.nationality = nationality;
 	}
-	
-	
+		
 	@JsonIgnore
 	@ManyToMany	(mappedBy = "authors")	
 	

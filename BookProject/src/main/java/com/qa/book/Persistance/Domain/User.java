@@ -24,12 +24,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
-
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 
 public class User {
@@ -39,33 +35,40 @@ public class User {
 	@Column (name = "user_Id")
 	private long userId;
 		
-	@Column (nullable = false)
+	@Column (name = "first_name",nullable = false)
 	private String firstName;
-	@Column (nullable = false)
+	@Column (name = "last_name",nullable = false)
 	private String lastName;
-	@Column (unique = true, nullable = false)
+	@Column (name = "email",unique = true, nullable = false)
 	private String email;
-	@Column (nullable = false)
+	@Column (name = "password",nullable = false)
 	private String password;
+		
 	
-	
-	
+	public User(long userId, String firstName, String lastName, String email, String password, Set<Book> books) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.books = books;
+	}
 	
     @ManyToMany (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	 @JoinTable( name = "Book_On_Loan", 
 		joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "user_Id")},
 		inverseJoinColumns = {@JoinColumn(name = "bookId", referencedColumnName = "book_Id")})
-  
-	
+  	
 	@Setter(AccessLevel.NONE)
     private Set <Book> books = new HashSet<>();
 	
 	public void BorrowBook(Book book) {
 		this.books.add(book);
-}
-
+	}
 	public void ReturnBook(Book book) {
 		this.books.remove(book);
 	}
+
 	
 }

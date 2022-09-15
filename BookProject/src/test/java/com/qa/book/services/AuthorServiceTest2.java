@@ -1,4 +1,5 @@
 package com.qa.book.services;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -16,51 +17,45 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
+import org.springframework.test.context.ActiveProfiles;
 
 import com.qa.book.Persistance.Domain.Author;
-import com.qa.book.Persistance.Domain.Book;
-import com.qa.book.Persistance.Domain.User;
 import com.qa.book.Persistance.Repo.AuthorRepo;
-import com.qa.book.Persistance.Repo.UserRepo;
 import com.qa.book.Services.AuthorService;
-import com.qa.book.Services.UserService;
 
-
-@SpringBootTest
-public class UserServiceTest {
-
+@SpringBootTest  //(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+public class AuthorServiceTest2 {
 	
+@Autowired 
 	
-	@Autowired 
-	
-	private UserService service;
-	
+	private AuthorService service;
 	
 	@MockBean
 	
-	private UserRepo repo;
+	
+	private AuthorRepo repo;
 	
 	@Test
 	void testGetById() {
 		final Long Id = (long) 1;
-		final Optional<User> user = Optional.ofNullable(new User(Id,"Jack", "Kangaroo", "jk@hotmail.com","qwerty",null));
+		final Optional<Author> author = Optional.ofNullable(new Author(Id, "Jack", "Kangaroo",145289, "Australia"));
 
-		Mockito.when(this.repo.findById(Id)).thenReturn(user);
+		Mockito.when(this.repo.findById(Id)).thenReturn(author);
 
-		assertThat(this.service.findById(Id)).isEqualTo(user);
+		assertThat(this.service.findById(Id)).isEqualTo(author);
 
 		Mockito.verify(this.repo, Mockito.times(1)).findById(Id);
 	}
 	
 	@Test
-	void testGetAllUsers() {
-		final List<User> users = List.of(new User(1,"Jack", "Kangaroo", "jk@hotmail.com","qwerty",null),
-				new User(2, "Wally", "west", "ww@hotmail.com","ww145",null));
+	void testGetAllAuthors() {
+		final List<Author> authors = List.of(new Author(1, "Jack", "Kangaroo", 145289,"Australia"),
+				new Author(2, "Wally", "Wallaby",145993, "Holland"));
 
-		Mockito.when(this.repo.findAll()).thenReturn(users);
+		Mockito.when(this.repo.findAll()).thenReturn(authors);
 
-		assertThat(this.service.getAll()).isEqualTo(users);
+		assertThat(this.service.getAll()).isEqualTo(authors);
 
 		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
@@ -68,18 +63,18 @@ public class UserServiceTest {
 	@Test
 	void testUpdate() { // REMEMBER TO OVERRIDE THE equals() METHOD IN YOUR ENTITY
 		final Long id = (long) 1;
-		User user = new User(id,"Jack", "Kangaroo", "jk@hotmail.com","qwerty",null);
-		Optional<User> optionalUser = Optional.of(user);
+		Author author = new Author(id, "Jack", "Kangaroo",145289, "Australia");
+		Optional<Author> optionalAuthor = Optional.of(author);
 
-		User newUser = new User (id,"Wally", "west", "ww@hotmail.com","ww145",null);
+		Author newAuthor = new Author (id, "Wally", "Wallabee", 145993, "Holland");
 
-		Mockito.when(this.repo.findById(id)).thenReturn(optionalUser);
-		Mockito.when(this.repo.save(newUser)).thenReturn(newUser);
+		Mockito.when(this.repo.findById(id)).thenReturn(optionalAuthor);
+		Mockito.when(this.repo.save(newAuthor)).thenReturn(newAuthor);
 
-		assertThat(this.service.updateUser(user.getUserId(),newUser)).isEqualTo(newUser);
+		assertThat(this.service.updateAuthor(author.getAuthorId(),newAuthor)).isEqualTo(newAuthor);
 
 		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
-		Mockito.verify(this.repo, Mockito.times(1)).save(newUser);
+		Mockito.verify(this.repo, Mockito.times(1)).save(newAuthor);
 	}
 
 	
@@ -89,10 +84,9 @@ public class UserServiceTest {
 
 		Mockito.when(this.repo.existsById(id)).thenReturn(false);
 
-		assertThat(this.service.removeUser(id)).isEqualTo(true);
+		assertThat(this.service.removeAuthor(id)).isEqualTo(true);
 
 		Mockito.verify(this.repo, Mockito.times(1)).existsById(id);
 	}
 
 }
-
