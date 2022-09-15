@@ -60,7 +60,7 @@ public class BookService {
 	existing.setPublishedDate(book.getPublishedDate());
 	existing.setIsbnNumber(book.getIsbnNumber());
 	existing.setPublishedDate(book.getPublishedDate());
-	existing.setNumPages(book.getNumPages());
+
 	existing.setAvailableCopies(book.getAvailableCopies()); 
 		
 	return this.repo.save(existing);

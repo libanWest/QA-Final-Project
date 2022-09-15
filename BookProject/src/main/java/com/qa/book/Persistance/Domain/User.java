@@ -38,8 +38,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	@Column (name = "user_Id")
 	private long userId;
-	
-	
+		
 	@Column (nullable = false)
 	private String firstName;
 	@Column (nullable = false)

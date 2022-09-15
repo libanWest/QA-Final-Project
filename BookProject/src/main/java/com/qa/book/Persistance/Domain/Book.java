@@ -44,33 +44,30 @@ public class Book {
 	private String title;
 	
 	@Column (name = "published_date",nullable = false)
-	private Date publishedDate;
+	private String publishedDate;
 	@Column (name = "ISBN_No",unique = true, nullable = false)
 	private String isbnNumber;
 	
-	@Column (name = "Number_Of_Pages", nullable = false)
-	private int numPages;
 	@Column (name = "Available_Copies",nullable = false)
 	private int availableCopies;
 	
 	
 
-	public Book(long bookId, String title, Date publishedDate, String isbnNumber, int numPages, int availableCopies,
+	public Book(long bookId, String title, String publishedDate, String isbnNumber, int availableCopies,
 			Set<Author> authors) {
 		super();
 		this.bookId = bookId;
 		this.title = title;
 		this.publishedDate = publishedDate;
 		this.isbnNumber = isbnNumber;
-		this.numPages = numPages;
 		this.availableCopies = availableCopies;
 		this.authors = authors;
 	}
 		
 	@ManyToMany	(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable( name = "Book_Authors", 
-	joinColumns = {@JoinColumn(name = "Bookid", referencedColumnName = "book_Id")},
-	inverseJoinColumns = {@JoinColumn(name = "Authorid", referencedColumnName = "author_Id")})
+	joinColumns = {@JoinColumn(name = "bookId", referencedColumnName = "book_Id")},
+	inverseJoinColumns = {@JoinColumn(name = "authorId", referencedColumnName = "author_Id")})
 	
 	@Setter(AccessLevel.NONE)
     private Set <Author> authors = new HashSet<>();
@@ -89,9 +86,6 @@ public class Book {
 	
 	
 	
-	 @ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnore   
-	private User user;
 
 	public void setAuthors(Author author) {
 			this.authors.add(author);
