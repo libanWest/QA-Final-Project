@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qa.book.Persistance.Domain.Author;
 import com.qa.book.Services.AuthorService;
 
+
+
+
 @RestController
+
 public class AuthorController {
 
-	
-	
-@Autowired
+	@Autowired
 
-
-
-private AuthorService service;
+	private AuthorService service;
 
 
 	public AuthorController(AuthorService service) {

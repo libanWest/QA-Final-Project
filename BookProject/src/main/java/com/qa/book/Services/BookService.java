@@ -12,9 +12,6 @@ import com.qa.book.Persistance.Repo.AuthorRepo;
 import com.qa.book.Persistance.Repo.BookRepo;
 
 
-
-
-
 @Component
 @Service
 
@@ -22,87 +19,82 @@ import com.qa.book.Persistance.Repo.BookRepo;
 public class BookService {
 	
 	private BookRepo repo;
-	
-	
-	
 	private AuthorRepo authorRepo;
+	
 	public BookService(BookRepo repo , AuthorRepo authorRepo) {
 		super();
 		
 		this.repo = repo;
 		this.authorRepo = authorRepo;
-	}
-	
+	}	
 			
 	// Add book
+			
+		public Book addBook(Book newBook) {
+			
+			return this.repo.save(newBook);  	
+		}
 		
-	public Book addBook(Book newBook) {
-		
-		return this.repo.save(newBook);  
-		
-	}
-	
 	// Get all
-	
-	public List<Book> getAll() {
 		
-		return this.repo.findAll(); 
-	}
-	
-	
+		public List<Book> getAll() {
+			
+			return this.repo.findAll(); 
+		}
+		
 	// Update
-	
-	public Book updateBook(Long id, Book book) {
 		
-	java.util.Optional<Book> existingOptional = this.repo.findById(id); 
-	
-	Book existing = existingOptional.get(); 
-	
-	existing.setTitle(book.getTitle());
-	existing.setPublishedDate(book.getPublishedDate());
-	existing.setIsbnNumber(book.getIsbnNumber());
-	existing.setPublishedDate(book.getPublishedDate());
-
-	existing.setAvailableCopies(book.getAvailableCopies()); 
+		public Book updateBook(Long id, Book book) {
+			
+		java.util.Optional<Book> existingOptional = this.repo.findById(id); 
 		
-	return this.repo.save(existing);
+		Book existing = existingOptional.get(); 
 		
-	
-	}
-	
+			existing.setTitle(book.getTitle());
+			existing.setPublishedDate(book.getPublishedDate());
+			existing.setIsbnNumber(book.getIsbnNumber());
+			existing.setPublishedDate(book.getPublishedDate());
+		
+			existing.setAvailableCopies(book.getAvailableCopies()); 
+				
+			return this.repo.save(existing);
+		}
+		
 	// Delete
-
 	
-	public boolean removeBook(Long id) {
-		
-		this.repo.deleteById(id);	
-		boolean exists =  this.repo.existsById(id);
-		return !exists; 
-		}
-
+		public boolean removeBook(Long id) {
+			
+			this.repo.deleteById(id);	
+			boolean exists =  this.repo.existsById(id);
+			return !exists; 
+			}
 	
-	public Optional<Book> findById(Long bookId) {
-		return this.repo.findById(bookId);
-		}
+	// FindById
 		
-
-		
+		public Optional<Book> findById(Long bookId) {
+			return this.repo.findById(bookId);
+			}
+			
 	
-	public Book addAuthor(Long bookId, Long authorId) {
+	// Add existing author to book
 		
-	    Book book = this.repo.findById(bookId).get();
-	    Author author = this.authorRepo.findById(authorId).get();
-	    book.setAuthors(author); 
-	 
-	    return this.repo.save(book);
+		public Book addAuthor(Long bookId, Long authorId) {
+			
+		    Book book = this.repo.findById(bookId).get();
+		    Author author = this.authorRepo.findById(authorId).get();
+		    book.setAuthors(author); 
+		 
+		    return this.repo.save(book);
+			}
+		
+	 // Delete existing author from book
+		
+		public Book DeleteAuthor(Long bookId, Long authorId) {
+				  
+		    Book book = this.repo.findById(bookId).get();
+		    Author author = this.authorRepo.findById(authorId).get();
+		    
+		    book.DeleteAuthor(author);
+		    return this.repo.save(book);
 		}
-
-	public Book DeleteAuthor(Long bookId, Long authorId) {
-			  
-	    Book book = this.repo.findById(bookId).get();
-	    Author author = this.authorRepo.findById(authorId).get();
-	    
-	    book.DeleteAuthor(author);
-	    return this.repo.save(book);
-	}
 }

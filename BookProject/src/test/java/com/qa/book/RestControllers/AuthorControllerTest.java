@@ -87,6 +87,12 @@ public class AuthorControllerTest {
 		// request and assert
 		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 	}
+	
+	@Test
+	public void deleteByIsbn() throws Exception {
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
+				"/authors/" + authorUpdateInfo.getAuthorId());
+		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
 
 //	@Test
 //	public void getByIsbnTest() throws Exception {
@@ -105,45 +111,41 @@ public class AuthorControllerTest {
 //		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 //	}
 
-	@Test
-	public void createauthorTest() throws Exception {
-		// test object
-		Author expectedTestauthor = new Author(testAuthor.getAuthorId(), testAuthor.getFirstName(), testAuthor.getLastName(),testAuthor.getOrcidNumber(),testAuthor.getNationality());
-		// mock request
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/authors/create");
-		// specifying accept header return type
-		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(testAuthor));
+//	@Test
+//	public void createauthorTest() throws Exception {
+//		// test object
+//		Author expectedTestauthor = new Author(testAuthor.getAuthorId(), testAuthor.getFirstName(), testAuthor.getLastName(),testAuthor.getOrcidNumber(),testAuthor.getNationality());
+//		// mock request
+//		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/authors/create");
+//		// specifying accept header return type
+//		mockRequest.contentType(MediaType.APPLICATION_JSON);
+//		mockRequest.content(objectMapper.writeValueAsString(testAuthor));
+//
+//		mockRequest.accept(MediaType.APPLICATION_JSON);
+//		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+//				.json(objectMapper.writeValueAsString(expectedTestauthor));
+//
+//		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+//
+//	}
 
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(expectedTestauthor));
+//	@Test
+//	public void updateauthorTest() throws Exception {
+//		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
+//				"/authors/update" + authorUpdateInfo.getAuthorId());
+//		// specifying accept header return type
+//		mockRequest.contentType(MediaType.APPLICATION_JSON);
+//		mockRequest.content(objectMapper.writeValueAsString(authorUpdateInfo));
+//		mockRequest.accept(MediaType.APPLICATION_JSON);
+//		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+//				.json(objectMapper.writeValueAsString(authorUpdateInfo));
+//
+//		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+//	}
 
-		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 
-	}
-
-	@Test
-	public void updateauthorTest() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
-				"/authors/update" + authorUpdateInfo.getAuthorId());
-		// specifying accept header return type
-		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(authorUpdateInfo));
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(authorUpdateInfo));
-
-		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-	}
-
-	@Test
-	public void deleteByIsbn() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
-				"/authors/" + authorUpdateInfo.getAuthorId());
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
 		
 
 	

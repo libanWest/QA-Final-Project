@@ -57,7 +57,4 @@ public class Author {
 		private Set <Book> bookSet = new HashSet<>();
 
 
-
-
-
 }

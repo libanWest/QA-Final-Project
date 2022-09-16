@@ -20,23 +20,19 @@ import com.qa.book.Services.BookService;
 @RestController
 public class BookController {
 	
-@Autowired
+	@Autowired
 	
-
 	private BookService service;
-	
 	
 	public BookController(BookService service) {
 		super();
 		this.service = service;
 	}
 	
-	
 	@PostMapping( "/books/create")
 	public Book addBook (@RequestBody Book book) {
 		return this.service.addBook(book);
 	}
-	
 	
 	@GetMapping("/books/getAll")
 	
@@ -46,13 +42,11 @@ public class BookController {
 	}
 	
 	
-	
 	@PutMapping("/books/update")
 	
-	public Book updateBook(@PathParam("id") Long id, @RequestBody Book book) { // request the id to retrieve and the body to update it
+	public Book updateBook(@PathParam("id") Long id, @RequestBody Book book) { 
 		
 		return this.service.updateBook(id, book);
-		
 	}
 	
 	@DeleteMapping("/books/delete/{id}")
@@ -67,9 +61,7 @@ public class BookController {
 	        @PathVariable Long authorId
 	) {
 	    return this.service.addAuthor(bookId, authorId);
-	
 	}
-	
 	
 	@PutMapping("/{bookId}/delete-authors/{authorId}")
 	Book deleteAuthors(

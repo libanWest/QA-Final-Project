@@ -14,6 +14,7 @@ import com.qa.book.Persistance.Repo.UserRepo;
 
 @Component
 @Service
+
 public class UserService  {
 	
 	private UserRepo repo;
@@ -23,23 +24,20 @@ public class UserService  {
 		super();
 		this.repo = repo;
 		this.bookRepo = bookRepo;
-	}
-	
+		}
 	
 	// Add User
 	
 		public User addUser(User newUser) {
 		return this.repo.save(newUser);  
-			
+	
 		}
-
-
+		
 	// Get all
 
 		public List<User> getAll() {
 		return this.repo.findAll(); 
 		}
-
 
 	// Update
 
@@ -55,19 +53,18 @@ public class UserService  {
 		existing.setPassword(user.getPassword());
 
 		return this.repo.save(existing);
-
 		}
 
-		// Delete
+	// Delete
 
 		public boolean removeUser(Long id) {
 			this.repo.deleteById(id);
 			boolean exists =  this.repo.existsById(id);
-			return !exists;  
-			
+			return !exists;  		
 		}
-	
-	
+		
+	// Borrow book
+		
 		public User BorrowBook(Long userId, Long bookId) {
 			
 			User user = this.repo.findById(userId).get();
@@ -78,13 +75,14 @@ public class UserService  {
 		    int copies = book.getAvailableCopies();
 		    book.setAvailableCopies(copies-1);
 		    this.repo.save(user);
-   		  }
+   		 }
 		// make an exception 
 		 
 		return  user;
-		
 		}
-
+		
+	// Return book
+		
 		public User ReturnBook(Long userId, Long bookId) {
 				  
 			User user = this.repo.findById(userId).get();
@@ -95,9 +93,9 @@ public class UserService  {
 		    book.setAvailableCopies(copies+1);
 		    
 		    return this.repo.save(user);
-
-}
+		}
 		
+	// Find by id
 		public Optional<User> findById(Long userId) {
 			return this.repo.findById(userId);	
 		}

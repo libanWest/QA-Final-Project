@@ -72,19 +72,30 @@ public class UserControllerTest {
 	//@Disabled
 	@Test
 	public void getusersTest() throws Exception {
-		// mock http request builder
+
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/users/getAll");
-		// specifying accept header return type
+	
 		mockRequest.accept(MediaType.APPLICATION_JSON);
-		// JSON string for obj mapper
+	
 		String users = objectMapper.writeValueAsString(usersInDb);
-		// result matcher
+
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(users);
-		// request and assert
+
 		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 	}
 
+	
+	
+	
+	@Test
+	public void deleteByIsbn() throws Exception {
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
+				"/users/" + userUpdateInfo.getUserId());
+		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+		
+		
+		
 //	@Test
 //	public void getByIsbnTest() throws Exception {
 //		usersDb.add(repository.save(testuser));
@@ -102,45 +113,41 @@ public class UserControllerTest {
 //		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 //	}
 
-	@Test
-	public void createuserTest() throws Exception {
-		// test object
-		User expectedTestUser = new User(testUser.getUserId(), testUser.getFirstName(), testUser.getLastName(),testUser.getEmail(),testUser.getPassword(), testUser.getBooks());
-		// mock request
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/users/create");
-		// specifying accept header return type
-		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(testUser));
+//	@Test
+//	public void createuserTest() throws Exception {
+//		// test object
+//		User expectedTestUser = new User(testUser.getUserId(), testUser.getFirstName(), testUser.getLastName(),testUser.getEmail(),testUser.getPassword(), testUser.getBooks());
+//		// mock request
+//		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/users/create");
+//		// specifying accept header return type
+//		mockRequest.contentType(MediaType.APPLICATION_JSON);
+//		mockRequest.content(objectMapper.writeValueAsString(testUser));
+//
+//		mockRequest.accept(MediaType.APPLICATION_JSON);
+//		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+//				.json(objectMapper.writeValueAsString(expectedTestUser));
+//
+//		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+//
+//	}
 
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(expectedTestUser));
+//	@Test
+//	public void updateuserTest() throws Exception {
+//		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
+//				"/users/update" + userUpdateInfo.getUserId());
+//		// specifying accept header return type
+//		mockRequest.contentType(MediaType.APPLICATION_JSON);
+//		mockRequest.content(objectMapper.writeValueAsString(userUpdateInfo));
+//		mockRequest.accept(MediaType.APPLICATION_JSON);
+//		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+//				.json(objectMapper.writeValueAsString(userUpdateInfo));
+//
+//		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+//	}
 
-		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-
-	}
-
-	@Test
-	public void updateuserTest() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
-				"/users/update" + userUpdateInfo.getUserId());
-		// specifying accept header return type
-		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(userUpdateInfo));
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(userUpdateInfo));
-
-		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-	}
-
-	@Test
-	public void deleteByIsbn() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
-				"/users/" + userUpdateInfo.getUserId());
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+	
 		
 
 	

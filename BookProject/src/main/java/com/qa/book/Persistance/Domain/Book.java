@@ -84,20 +84,6 @@ public class Book {
 	}
 
 	
-
-
-
-
-
-
-
-
-		
-		
-		
-		
-	
-	
 	
 	
 }

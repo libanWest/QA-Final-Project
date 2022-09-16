@@ -93,6 +93,17 @@ public class BookControllerTest {
 		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 	}
 
+	
+
+	@Test
+	public void deleteByIsbn() throws Exception {
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
+				"/books/" + bookUpdateInfo.getBookId());
+		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+		
+
+	
+}
 //	@Test
 //	public void getByIsbnTest() throws Exception {
 //		booksDb.add(repository.save(testBook));
@@ -110,48 +121,39 @@ public class BookControllerTest {
 //		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 //	}
 
-	@Test
-	public void createBookTest() throws Exception {
-		// test object
-		Book expectedTestBook = new Book(testBook.getBookId(), testBook.getTitle(), testBook.getPublishedDate(),testBook.getIsbnNumber(),testBook.getAvailableCopies(),testBook.getAuthors());
-		// mock request
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/books/create");
-		// specifying accept header return type
-		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(testBook));
+//	@Test
+//	public void createBookTest() throws Exception {
+//		// test object
+//		Book expectedTestBook = new Book(testBook.getBookId(), testBook.getTitle(), testBook.getPublishedDate(),testBook.getIsbnNumber(),testBook.getAvailableCopies(),testBook.getAuthors());
+//		// mock request
+//		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/books/create");
+//		// specifying accept header return type
+//		mockRequest.contentType(MediaType.APPLICATION_JSON);
+//		mockRequest.content(objectMapper.writeValueAsString(testBook));
+//
+//		mockRequest.accept(MediaType.APPLICATION_JSON);
+//		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+//				.json(objectMapper.writeValueAsString(expectedTestBook));
+//
+//		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+//
+//	}
+//
+//	@Test
+//	public void updateBookTest() throws Exception {
+//		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
+//				"/books/update" + bookUpdateInfo.getBookId());
+//		// specifying accept header return type
+//		mockRequest.contentType(MediaType.APPLICATION_JSON);
+//		mockRequest.content(objectMapper.writeValueAsString(bookUpdateInfo));
+//		mockRequest.accept(MediaType.APPLICATION_JSON);
+//		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+//				.json(objectMapper.writeValueAsString(bookUpdateInfo));
+//
+//		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+//	}
 
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(expectedTestBook));
-
-		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-
-	}
-
-	@Test
-	public void updateBookTest() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
-				"/books/update" + bookUpdateInfo.getBookId());
-		// specifying accept header return type
-		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(bookUpdateInfo));
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(bookUpdateInfo));
-
-		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-	}
-
-	@Test
-	public void deleteByIsbn() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
-				"/books/" + bookUpdateInfo.getBookId());
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
-		
-
-	
-}
 	
 }
