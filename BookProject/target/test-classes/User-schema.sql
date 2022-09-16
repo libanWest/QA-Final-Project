@@ -1,0 +1,13 @@
+
+DROP TABLE IF EXISTS user;
+
+
+CREATE TABLE IF NOT EXISTS user (
+  user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  first_name VARCHAR(500),
+  last_name VARCHAR(500),
+  email VARCHAR(500),
+  password VARCHAR(500)
+
+ 
+);
