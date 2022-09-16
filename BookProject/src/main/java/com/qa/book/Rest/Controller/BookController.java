@@ -1,6 +1,7 @@
 package com.qa.book.Rest.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.websocket.server.PathParam;
 
@@ -22,58 +23,60 @@ public class BookController {
 @Autowired
 	
 
-private BookService service;
-
-
-public BookController(BookService service) {
-	super();
-	this.service = service;
-}
-
-
-@PostMapping( "/create")
-public Book addBook (@RequestBody Book book) {
-	return this.service.addBook(book);
-}
-
-
-@GetMapping("/getAll")
-
-public List<Book> getAll(){
+	private BookService service;
 	
-	return this.service.getAll();
-}
-
-@PutMapping("/update")
-
-public Book updateBook(@PathParam("id") Long id, @RequestBody Book book) { // request the id to retrieve and the body to update it
 	
-	return this.service.updateBook(id, book);
+	public BookController(BookService service) {
+		super();
+		this.service = service;
+	}
 	
-}
-
-@DeleteMapping("/delete/{id}")
-public boolean removeBook(@PathVariable Long id) {
 	
-	return this.service.removeBook(id);
-}
-
-@PutMapping("/{bookId}/authors/{authorId}")
-Book addAuthorToBook(
-        @PathVariable Long bookId,
-        @PathVariable Long authorId
-) {
-    return this.service.addAuthor(bookId, authorId);
-
-}
-
-
-@PutMapping("/{bookId}/delete-authors/{authorId}")
-Book deleteAuthors(
-        @PathVariable Long bookId,
-        @PathVariable Long authorId
-) {
-    return this.service.DeleteAuthor(bookId, authorId);
-
-}
-}
+	@PostMapping( "/books/create")
+	public Book addBook (@RequestBody Book book) {
+		return this.service.addBook(book);
+	}
+	
+	
+	@GetMapping("/books/getAll")
+	
+	public List<Book> getAll(){
+		
+		return this.service.getAll();
+	}
+	
+	
+	
+	@PutMapping("/books/update")
+	
+	public Book updateBook(@PathParam("id") Long id, @RequestBody Book book) { // request the id to retrieve and the body to update it
+		
+		return this.service.updateBook(id, book);
+		
+	}
+	
+	@DeleteMapping("/books/delete/{id}")
+	public boolean removeBook(@PathVariable Long id) {
+		
+		return this.service.removeBook(id);
+	}
+	
+	@PutMapping("/{bookId}/addauthors/{authorId}")
+	Book addAuthorToBook(
+	        @PathVariable Long bookId,
+	        @PathVariable Long authorId
+	) {
+	    return this.service.addAuthor(bookId, authorId);
+	
+	}
+	
+	
+	@PutMapping("/{bookId}/delete-authors/{authorId}")
+	Book deleteAuthors(
+	        @PathVariable Long bookId,
+	        @PathVariable Long authorId
+	) {
+	    return this.service.DeleteAuthor(bookId, authorId);
+	
+	}
+	}

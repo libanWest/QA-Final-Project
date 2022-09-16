@@ -25,39 +25,34 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.book.Persistance.Domain.Book;
-import com.qa.book.Persistance.Repo.BookRepo;
-import com.qa.book.Rest.Controller.BookController;
-import com.qa.book.Services.BookService;
+import com.qa.book.Persistance.Domain.Author;
+import com.qa.book.Persistance.Domain.Author;
+import com.qa.book.Persistance.Repo.AuthorRepo;
 
-//import io.netty.handler.codec.http.HttpMethod;
+
+
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//@ContextConfiguration(classes =BookService.class)
-
 
 @AutoConfigureMockMvc
 @Transactional
 
-
-
-public class BookControllerTest {
-
+public class AuthorControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Autowired
 	private ObjectMapper objectMapper;
-
+	
 	@MockBean
-	private BookRepo repository;
-
-	private List<Book> booksDb = new ArrayList<>();
-	private Book testBook;
-	private long testBookId;
-	private Book expectedTestBook;
-	private Book bookUpdateInfo;
+	private AuthorRepo repo;
+	
+	private List<Author> authorsInDb = new ArrayList<>();
+	private Author testAuthor;
+	private long testAuthorId;
+	private Author expectedTestauthor;
+	private Author authorUpdateInfo;
 
 
 
@@ -66,80 +61,80 @@ public class BookControllerTest {
 	
 	@BeforeEach
 	public void init() {
-		List<Book> books = List.of(
-				new Book(1, "Jack and the bean", "1957","145-263-594", 53,null),
-				new Book(2, "Wally west", "2000","145-365-256",23,null));
-		booksDb.addAll(repository.saveAll(books));
-		testBook = new Book(3, "The Trail, English Translation", "145-256-125", "Franz", 14,null);
-		testBookId = testBook.getBookId();
-		expectedTestBook = new Book(testBook.getBookId(), testBook.getTitle(), testBook.getPublishedDate(),testBook.getIsbnNumber(),testBook.getAvailableCopies(),testBook.getAuthors());
-		bookUpdateInfo = new Book(1,"Jack and the bean stoke, second edition", "1957","145-263-594", 53,null);
+		List<Author> authors = List.of(
+				new Author(1, "jack","black",145263,"british"),
+				new Author(2, "wally", "west", 14236,"american"));
+		authorsInDb.addAll(repo.saveAll(authors));
+		testAuthor = new Author(3, "john","smith",256125, "French");
+		testAuthorId = testAuthor.getAuthorId();
+		expectedTestauthor = new Author(testAuthor.getAuthorId(), testAuthor.getFirstName(), testAuthor.getLastName(),testAuthor.getOrcidNumber(),testAuthor.getNationality());
+		authorUpdateInfo = new Author(1, "jackson","black",145263,"british");
 
 	}
 
-	
+
 	@Test
-	public void getBooksTest() throws Exception {
+	public void getauthorsTest() throws Exception {
 		// mock http request builder
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/books/getAll");
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/authors/getAll");
 		// specifying accept header return type
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 		// JSON string for obj mapper
-		String books = objectMapper.writeValueAsString(booksDb);
+		String authors = objectMapper.writeValueAsString(authorsInDb);
 		// result matcher
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(books);
+		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(authors);
 		// request and assert
 		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 	}
 
 //	@Test
 //	public void getByIsbnTest() throws Exception {
-//		booksDb.add(repository.save(testBook));
+//		authorsDb.add(repository.save(testauthor));
 //		// mock http request builder
 //		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET,
-//				"/books/" + testBookId);
+//				"/authors/" + testauthorId);
 //		// specifying accept header return type
 //		mockRequest.accept(MediaType.APPLICATION_JSON);
 //		// JSON string for obj mapper
-//		String testBookStr = objectMapper.writeValueAsString(testBook);
+//		String testauthorStr = objectMapper.writeValueAsString(testauthor);
 //		// result matcher
 //		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
-//		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(testBookStr);
+//		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(testauthorStr);
 //		// request and assert
 //		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 //	}
 
 	@Test
-	public void createBookTest() throws Exception {
+	public void createauthorTest() throws Exception {
 		// test object
-		Book expectedTestBook = new Book(testBook.getBookId(), testBook.getTitle(), testBook.getPublishedDate(),testBook.getIsbnNumber(),testBook.getAvailableCopies(),testBook.getAuthors());
+		Author expectedTestauthor = new Author(testAuthor.getAuthorId(), testAuthor.getFirstName(), testAuthor.getLastName(),testAuthor.getOrcidNumber(),testAuthor.getNationality());
 		// mock request
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/books/create");
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/authors/create");
 		// specifying accept header return type
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(testBook));
+		mockRequest.content(objectMapper.writeValueAsString(testAuthor));
 
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(expectedTestBook));
+				.json(objectMapper.writeValueAsString(expectedTestauthor));
 
 		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 
 	}
 
 	@Test
-	public void updateBookTest() throws Exception {
+	public void updateauthorTest() throws Exception {
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
-				"/books/update" + bookUpdateInfo.getBookId());
+				"/authors/update" + authorUpdateInfo.getAuthorId());
 		// specifying accept header return type
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(bookUpdateInfo));
+		mockRequest.content(objectMapper.writeValueAsString(authorUpdateInfo));
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-				.json(objectMapper.writeValueAsString(bookUpdateInfo));
+				.json(objectMapper.writeValueAsString(authorUpdateInfo));
 
 		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 	}
@@ -147,11 +142,11 @@ public class BookControllerTest {
 	@Test
 	public void deleteByIsbn() throws Exception {
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
-				"/books/" + bookUpdateInfo.getBookId());
+				"/authors/" + authorUpdateInfo.getAuthorId());
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
 		
 
 	
 }
-	
+
 }
