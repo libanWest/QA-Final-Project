@@ -155,3 +155,8 @@ I added this functionality to let users actually **borrow** books and then retur
 The final test coverage was 70%, room for improvement.
 
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919320-074b4733-e2fa-4c43-9e28-b164ada11b1a.png)
+
+
+
+**JIRA Board**
+[My Jira board](https://libanabdirahman.atlassian.net/jira/software/projects/QFJPLA/boards/2)
