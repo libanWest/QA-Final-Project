@@ -118,7 +118,7 @@ I added this functionality to let users actually **borrow** books and then retur
 
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919229-d6a6f9d5-9561-4878-a834-16d8e41ddd91.png)
 
-**Update Book**
+**Update Author**
 
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919225-824d5b00-391b-4b3e-aecd-fbfc4eb9700b.png)
 
@@ -126,7 +126,7 @@ I added this functionality to let users actually **borrow** books and then retur
 
 **Get all authors**
 
-![enter image description here](https://user-images.githubusercontent.com/101958815/190919267-6351d5e8-82a9-4feb-94a1-9b30fa5daaf7.png)
+![enter image description here](https://user-images.githubusercontent.com/101958815/190919224-ca914986-8114-401d-aa6d-80782d1cf11c.png)
 
 **Delete Author**
 
