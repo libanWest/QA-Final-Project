@@ -55,8 +55,6 @@ public class AuthorControllerTest {
 	private Author authorUpdateInfo;
 
 
-
-
 	
 	
 	@BeforeEach
@@ -71,7 +69,6 @@ public class AuthorControllerTest {
 		authorUpdateInfo = new Author(1, "jackson","black",145263,"british");
 
 	}
-
 
 	@Test
 	public void getauthorsTest() throws Exception {
