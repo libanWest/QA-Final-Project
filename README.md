@@ -46,7 +46,8 @@ I  chose to create a **Many to Many**  relationship between my **Book &  Author 
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919277-4f66c9cc-ba0c-4aae-9413-8c886695e620.png)
 
 **Add Author to Book**
-Since this is a **Many to Many** relationship, one Book can have many authors but that same author can also be added to another Book as shown in below. This relationship will be displayed in the **Book_Authors** table.
+
+Since this is a **Many to Many** relationship, one Book can have many authors as shown below. This relationship will be displayed in the **Book_Authors** table.
 
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919263-2667add8-0912-47dd-8e31-f5a8d4fe0760.png)
 
@@ -61,7 +62,7 @@ Since this is a **Many to Many** relationship, one Book can have many authors bu
 
 ## Users
 
-I created a users table to allow the Borrowing and returning of Books. This also is a **Many to Many** relationship as a **User can borrow multiple books** and a **Book can be be borrowed by many users**. The **copies owned** column in the Book table will decrease and increase as Books are borrowed or returned.
+I created a users table to allow the borrowing and returning of Books. This also is a **Many to Many** relationship as a **User can borrow multiple books** and a **Book can be be borrowed by many users**, depending on available copies ofcourse. The **available copies** column in the Book table will decrease and increase as Books are borrowed or returned.
 > **Note:** This relationship is managed by the join table **Books_on_loan**. 
 
 **Register User**
@@ -88,7 +89,8 @@ I created a users table to allow the Borrowing and returning of Books. This also
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919363-f8f87c09-55cc-4372-b672-5a14a24b2302.png)
 
 **Borrow book**
-I added this functionality to let users actually **borrow** books and then return them because that what a library main function is. When a User borrows a book the **available copies** of given book will **decrease**. When the book is return the available copies will **increase**, this also happens when a user is **deleted**. This in turn updates the **Books_on_loan** table. 
+
+I added this functionality to let users actually **borrow** books and then return them. When a User borrows a book, the **available copies** column of given book will **decrease**. The available copies will also **increase** when the book is returned or when a user is **deleted**. This in turn updates the **Books_on_loan** table. 
 
 
 ![enter image description here](https://user-images.githubusercontent.com/101958815/190919368-05b5c464-e42a-45d6-9dd9-335fbeec56d3.png)
